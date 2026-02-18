@@ -79,8 +79,8 @@ export default function SignInPage() {
           userId: user.userId,
           name: user.name,
           hasPhoneNumber: Boolean(phone),
-          country: user.country,
-          state: user.state
+          country,
+          state: state || null
         },
         {
           page: 'signin',
