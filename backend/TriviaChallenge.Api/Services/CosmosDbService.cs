@@ -110,7 +110,8 @@ public class CosmosDbService
                     {
                         UniqueKeys = { new UniqueKey { Paths = { "/email" } } }
                     }
-                });
+                },
+                ThroughputProperties.CreateAutoscaleThroughput(1000));
 
             _logger.LogInformation("Container {ContainerId} ready", _usersContainer.Id);
 
@@ -130,7 +131,8 @@ public class CosmosDbService
                             new IncludedPath { Path = "/pools/*" }
                         }
                     }
-                });
+                },
+                ThroughputProperties.CreateAutoscaleThroughput(1000));
 
             _logger.LogInformation("Container {ContainerId} ready", _questionsContainer.Id);
 
@@ -140,7 +142,8 @@ public class CosmosDbService
                 {
                     Id = _questionPoolsContainer.Id,
                     PartitionKeyPath = "/id"
-                });
+                },
+                ThroughputProperties.CreateAutoscaleThroughput(1000));
 
             _logger.LogInformation("Container {ContainerId} ready", _questionPoolsContainer.Id);
 
@@ -150,7 +153,8 @@ public class CosmosDbService
                 {
                     Id = _questionDrawsContainer.Id,
                     PartitionKeyPath = "/id"
-                });
+                },
+                ThroughputProperties.CreateAutoscaleThroughput(1000));
 
             _logger.LogInformation("Container {ContainerId} ready", _questionDrawsContainer.Id);
 
@@ -166,7 +170,8 @@ public class CosmosDbService
                         Automatic = true,
                         IncludedPaths = { new IncludedPath { Path = "/*" } }
                     }
-                });
+                },
+                ThroughputProperties.CreateAutoscaleThroughput(1000));
 
             _logger.LogInformation("Container {ContainerId} ready", _gameSessionsContainer.Id);
 
@@ -182,7 +187,8 @@ public class CosmosDbService
                         Automatic = true,
                         IncludedPaths = { new IncludedPath { Path = "/*" } }
                     }
-                });
+                },
+                ThroughputProperties.CreateAutoscaleThroughput(1000));
 
             _logger.LogInformation("Container {ContainerId} ready", _gameSessionAnswersContainer.Id);
 
