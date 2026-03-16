@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react'
 import type { MutableRefObject } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useBlocker } from 'react-router-dom'
 import { useGame } from '../context/GameContext'
 import { useGameTimer } from '../hooks/useGameTimer'
 import Header from '../components/Header'
@@ -156,6 +156,21 @@ export default function PlayingPage() {
       setShowBonusNotification(true)
     },
   })
+
+  // Prevent navigation while game is active
+  const isGameActive = !loading && !error && !sessionEndedRef.current
+    && (timerState === 'countdown' || timerState === 'running' || timerState === 'paused')
+
+  useBlocker(() => isGameActive)
+
+  useEffect(() => {
+    if (!isGameActive) return
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault()
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [isGameActive])
 
   const currentQuestion = questions[currentQuestionIndex]
 
