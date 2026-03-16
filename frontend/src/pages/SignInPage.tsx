@@ -269,7 +269,7 @@ export default function SignInPage() {
 
               <div className="relative mt-6 space-y-4 text-center text-xs leading-relaxed text-white/45">
                 <p>
-                  Your privacy matters to us. The contact details you share for the Microsoft Fabric Trivia Challenge will only be used during Microsoft Ignite to keep you updated on the game—think leaderboard highlights, daily prizes, and tips to boost your score.
+                  Your privacy matters to us. The contact details you share for the Microsoft Fabric Trivia Challenge will only be used during FabCon/SQLCon to keep you updated on the game—think leaderboard highlights, daily prizes, and tips to boost your score.
                 </p>
                 <p>
                   When you start the Challenge, your gameplay and telemetry data feed the Microsoft Fabric Real-Time Intelligence demo so attendees can see live analytics. That telemetry may inform post-event learnings or future Microsoft marketing.
