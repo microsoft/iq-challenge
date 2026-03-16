@@ -46,7 +46,7 @@ function StatGroup({ title, stats, caption }: { title: string; stats: StatDescri
   )
 }
 
-const QR_LINKS = [
+const QR_LINKS_DEFAULT = [
   {
     id: 'leaderboard',
     title: 'View the Leaderboard',
@@ -67,6 +67,13 @@ const QR_LINKS = [
   },
 ] as const
 
+const QR_LINKS_SQL_OVERRIDE = {
+  id: 'get-certified',
+  title: 'Take the next step with SQL certifications and training.',
+  href: 'https://aka.ms/AzureSQLAIDevelopment',
+  description: 'Take the next step with SQL certifications and training.',
+} as const
+
 export default function ResultsPage() {
   const navigate = useNavigate()
   const {
@@ -82,9 +89,17 @@ export default function ResultsPage() {
     gameOverReason,
     missedQuestions,
     resetGame,
+    selectedPool,
   } = useGame()
 
   const [analyticsEventCount] = useState(() => analytics.getTrackedEventCount())
+
+  const qrLinks = useMemo(() => {
+    if (selectedPool?.id === 'sql') {
+      return [...QR_LINKS_DEFAULT.slice(0, 2), QR_LINKS_SQL_OVERRIDE]
+    }
+    return QR_LINKS_DEFAULT
+  }, [selectedPool])
 
   useEffect(() => {
     if (!player) {
@@ -333,7 +348,7 @@ export default function ResultsPage() {
                 <p className="mt-2 text-sm text-white/45">Scan a code to keep your Fabric journey going after the challenge.</p>
               </header>
               <div className="grid gap-6 px-7 py-8 md:grid-cols-3">
-                {QR_LINKS.map((link) => (
+                {qrLinks.map((link) => (
                     <div
                     key={link.id}
                     className="group flex flex-col items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-6 py-7 text-center transition hover:border-amber-200/70 hover:shadow-[0_18px_42px_rgba(251,191,36,0.35)]"
